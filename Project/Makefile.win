@@ -1,17 +1,17 @@
 # Project: MP
 # Makefile created by Dev-C++ 5.4.1
 
-CPP      = g++.exe
-CC       = gcc.exe
+CPP      = g++.exe -D__DEBUG__
+CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
 OBJ      = Scene.o
 LINKOBJ  = Scene.o
-LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -static-libstdc++ -static-libgcc "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libopengl32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglut32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglu32.a" 
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Users/WilliamPC/Documents/GRAPHIX/MP/Project/Simple OpenGL Image Library/lib" -static-libstdc++ -static-libgcc "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libSOIL.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libopengl32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglut32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglu32.a"    -g3
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
-CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Users/WilliamPC/Documents/GRAPHIX/MP/Project/Simple OpenGL Image Library/src"
 BIN      = MP.exe
-CXXFLAGS = $(CXXINCS) -lglu32 -lglut32 -lopengl32
-CFLAGS   = $(INCS) -lglu32 -lglut32 -lopengl32
+CXXFLAGS = $(CXXINCS) -lglu32 -lglut32 -lopengl32 -g3
+CFLAGS   = $(INCS) -lglu32 -lglut32 -lopengl32 -g3
 RM       = rm -f
 
 .PHONY: all all-before all-after clean clean-custom

@@ -11,7 +11,7 @@ ResourceIncludes=
 MakeIncludes=
 Compiler=
 CppCompiler=
-Linker="../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libopengl32.a"_@@_"../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglut32.a"_@@_"../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglu32.a"_@@_
+Linker="../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libSOIL.a"_@@_"../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libopengl32.a"_@@_"../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglut32.a"_@@_"../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglu32.a"_@@__@@__@@_
 IsCpp=1
 Icon=
 ExeOutput=
@@ -28,7 +28,7 @@ CustomMakefile=
 IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
-CompilerSettings=0000000000000000000000000
+CompilerSettings=0000000000000000001000000
 UnitCount=1
 
 [VersionInfo]

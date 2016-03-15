@@ -2,7 +2,9 @@
 #include <GL\glut.h>
 #include <math.h>
 #include <stdio.h>
+#include <SOIL.h>
 
+#define GL_BGR 0x80E0 
 // angle of rotation for the camera direction
 float angle=0.0;
 // actual vector representing the camera’s direction
@@ -17,6 +19,111 @@ float moveSpeed = 1.0f;
 float deltaAngle = 0.0f;
 float oldMouseX = 0;
 float oldMouseY = 0;
+unsigned int tex;
+
+GLuint	texture[1];			// Storage For One Texture ( NEW )
+
+/*
+// Data read from the header of the BMP file
+	unsigned char header[54]; // Each BMP file begins by a 54-bytes header
+	unsigned int dataPos;     // Position in the file where the actual data begins
+	unsigned int width, height;
+	unsigned int imageSize;   // = width*height*3
+	// Actual RGB data
+	unsigned char * data;
+*/
+
+
+/*
+unsigned int loadTexture(const char* filename){
+	SDL_Surface* img= SDL_LoadBMP(filename);
+	unsigned int id;
+	printf("I'm here");
+	glGenTextures(1,&id);
+	glBindTexture(GL_TEXTURE_2D, id);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img->w, img->h, 
+				0,GL_RGB,GL_UNSIGNED_INT, img->pixels);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	SDL_FreeSurface(img);
+	return id;
+}
+*/
+
+/*
+GLuint loadBMP_custom(const char * imagepath){
+	
+	
+	
+	FILE * file = fopen(imagepath,"rb");
+	if (!file)
+	{
+		printf("Image could not be opened\n"); 
+		return 0;
+	}
+	if ( fread(header, 1, 54, file)!=54 )
+	{ // If not 54 bytes read : problem
+     	printf("Not a correct BMP file\n");
+     	return false;
+ 	}
+ 	
+ 	if ( header[0]!='B' || header[1]!='M' ){
+	    printf("Not a correct BMP file\n");
+	    return 0;
+	 }
+	
+	//read ints from bytearray 
+	dataPos = *(int*)&(header[0x0A]);
+	imageSize = *(int*)&(header[0x22]);
+	width = *(int*)&(header[0x12]);
+	height = *(int*)&(header[0x16]);
+	
+	if (imageSize==0)    
+	imageSize=width*height*3; // 3 : one byte for each Red, Green and Blue component
+	if (dataPos==0)
+	dataPos=54;
+	
+	//create buffer
+	data = new unsigned char [imageSize];
+	//read actual data from file into the buffer
+	fread(data,1,imageSize,file);
+	
+	fclose(file);
+	
+	GLuint textureID;
+	glGenTextures(1, &textureID);
+	
+	
+	return textureID;
+}
+*/
+
+
+
+int LoadGLTextures()                                    // Load Bitmaps And Convert To Textures
+{
+    /* load an image file directly as a new OpenGL texture */
+    texture[0] = SOIL_load_OGL_texture
+        (
+        "wall.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+
+    if(texture[0] == 0)
+        return false;
+ 
+ 
+    // Typical Texture Generation Using Data From The Bitmap
+    glBindTexture(GL_TEXTURE_2D, texture[0]);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+   // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+ 
+    return true;                                        // Return Success
+}
 
 void drawSnowMan() {
 
@@ -47,14 +154,26 @@ void drawSnowMan() {
 
 void drawWalls(){
 	glColor3f(1.0,1.0,1.0);
+	if(LoadGLTextures()){
+		glBindTexture(GL_TEXTURE_2D, texture[0]);
+	}
+	
+	
+	
+	
 	
 	//Draw Northern Wall
 	
 	glBegin(GL_QUADS);
-	glVertex3f(1000.0,0.0,100.0);
-	glVertex3f(1000.0, 0.0, 100.0);
-	glVertex3f(-1000.0,50.0,100.0);
-	glVertex3f(-1000.0,0.0,100.0);
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(1,0.0,100.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(1, 1.0, 100.0);
+	glTexCoord2f(0.0,1.0);
+	glVertex3f(0.0,1.0,100.0);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(0.0,0.0,100.0);
+	
 	glEnd();
 }
 
@@ -92,7 +211,9 @@ void renderScene(void) {
 	glVertex3f( 100.0f, 0.0f, 100.0f);
 	glVertex3f( 100.0f, 0.0f, -100.0f);
 	glEnd();
-
+	
+	
+	
 	drawWalls();
 	// Draw 36 SnowMen
 	for(int i = -3; i < 3; i++)
@@ -104,6 +225,7 @@ void renderScene(void) {
 		}
 		glutSwapBuffers();
 	}
+
 
 void changeSize(int w, int h) {
 
@@ -222,23 +344,28 @@ void processSpecialKeys(int key, int xx, int yy) {
 int main(int argc, char **argv) {
 
 	// init GLUT and create window
-	
+	//Start SDL
+   
+    
+    
+    
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100,100);
 	glutInitWindowSize(600,600);
 	glutCreateWindow("Lighthouse3D – GLUT Tutorial");
-	
+	// OpenGL init
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
 	// register callbacks
 	glutDisplayFunc(renderScene);
 	glutReshapeFunc(changeSize);
-	glutFullScreen();
+//	glutFullScreen();
 	glutIdleFunc(renderScene);
 	glutKeyboardFunc(processNormalKeys);
 	glutSpecialFunc(processSpecialKeys);
-	glutPassiveMotionFunc(moveMouse);
-	// OpenGL init
-	glEnable(GL_DEPTH_TEST);
+//	glutPassiveMotionFunc(moveMouse);
+	
 	
 	// enter GLUT event processing cycle
 	glutMainLoop();
