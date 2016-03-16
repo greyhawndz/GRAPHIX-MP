@@ -21,7 +21,7 @@ float oldMouseX = 0;
 float oldMouseY = 0;
 unsigned int tex;
 
-GLuint	texture[1];			// Storage For One Texture ( NEW )
+GLuint	texture[2];			// Storage For One Texture ( NEW )
 
 /*
 // Data read from the header of the BMP file
@@ -105,7 +105,15 @@ int LoadGLTextures()                                    // Load Bitmaps And Conv
     /* load an image file directly as a new OpenGL texture */
     texture[0] = SOIL_load_OGL_texture
         (
-        "wall.bmp",
+        "hammertone.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[1] = SOIL_load_OGL_texture
+        (
+        "wood.bmp",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -113,17 +121,28 @@ int LoadGLTextures()                                    // Load Bitmaps And Conv
 
     if(texture[0] == 0)
         return false;
+    if(texture[1] == 0){
+    	return false;
+    }
  
  
     // Typical Texture Generation Using Data From The Bitmap
     glBindTexture(GL_TEXTURE_2D, texture[0]);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-   // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+   	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+   	
+   	glBindTexture(GL_TEXTURE_2D, texture[1]);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+   	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
  
     return true;                                        // Return Success
 }
+
+
 
 void drawSnowMan() {
 
@@ -153,28 +172,202 @@ void drawSnowMan() {
 }
 
 void drawWalls(){
+	int i;
+	float dist = 10;
+	float increment = 15;
+	float startpoint = 5;
+	float height = 5;
 	glColor3f(1.0,1.0,1.0);
 	if(LoadGLTextures()){
 		glBindTexture(GL_TEXTURE_2D, texture[0]);
 	}
 	
 	
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(startpoint,0.0,100.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(startpoint, height, 100.0);
+	glTexCoord2f(0.0,1.0);
+	glVertex3f(-startpoint,height,100.0);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(-startpoint,0.0,100.0);
+	glEnd();
 	
 	
+	//Draw to left of Northern Wall
+	for(i = 0; i < 9; i++){
+		increment = dist + startpoint;
+		
+		glBegin(GL_QUADS);
+		glTexCoord2f(1.0,0.0);
+		glVertex3f(startpoint,0.0,100.0);
+		glTexCoord2f(1.0,1.0);
+		glVertex3f(startpoint, height, 100.0);
+		glTexCoord2f(0.0,1.0);
+		glVertex3f(increment,height,100.0);
+		glTexCoord2f(0.0,0.0);
+		glVertex3f(increment,0.0,100.0);
+		glEnd();
+		startpoint = increment;
+		
+	}
+	startpoint = 5;
+	increment = 0;
+	//Draw LeftSide of northern wall
+	for(i = 0; i < 9; i++){
+		increment = dist + startpoint;
+		glBegin(GL_QUADS);
+		glTexCoord2f(1.0,0.0);
+		glVertex3f(-startpoint,0.0,100.0);
+		glTexCoord2f(1.0,1.0);
+		glVertex3f(-startpoint, height, 100.0);
+		glTexCoord2f(0.0,1.0);
+		glVertex3f(-increment,height,100.0);
+		glTexCoord2f(0.0,0.0);
+		glVertex3f(-increment,0.0,100.0);
+		glEnd();
+		startpoint = increment;
+	}
 	
-	//Draw Northern Wall
+	startpoint = 5;
+	increment = 0;
 	
 	glBegin(GL_QUADS);
 	glTexCoord2f(1.0,0.0);
-	glVertex3f(1,0.0,100.0);
+	glVertex3f(startpoint,0.0,-100.0);
 	glTexCoord2f(1.0,1.0);
-	glVertex3f(1, 1.0, 100.0);
+	glVertex3f(startpoint, height, -100.0);
 	glTexCoord2f(0.0,1.0);
-	glVertex3f(0.0,1.0,100.0);
+	glVertex3f(-startpoint,height,-100.0);
 	glTexCoord2f(0.0,0.0);
-	glVertex3f(0.0,0.0,100.0);
-	
+	glVertex3f(-startpoint,0.0,-100.0);
 	glEnd();
+	//southern wall
+	for(i = 0; i < 9; i++){
+		increment = dist + startpoint;
+		
+		glBegin(GL_QUADS);
+		glTexCoord2f(1.0,0.0);
+		glVertex3f(startpoint,0.0,-100.0);
+		glTexCoord2f(1.0,1.0);
+		glVertex3f(startpoint, height, -100.0);
+		glTexCoord2f(0.0,1.0);
+		glVertex3f(increment,height,-100.0);
+		glTexCoord2f(0.0,0.0);
+		glVertex3f(increment,0.0,-100.0);
+		glEnd();
+		startpoint = increment;
+		
+	}
+	
+	startpoint = 5;
+	increment = 0;
+	
+	for(i = 0; i < 9; i++){
+		increment = dist + startpoint;
+		glBegin(GL_QUADS);
+		glTexCoord2f(1.0,0.0);
+		glVertex3f(-startpoint,0.0,-100.0);
+		glTexCoord2f(1.0,1.0);
+		glVertex3f(-startpoint, height, -100.0);
+		glTexCoord2f(0.0,1.0);
+		glVertex3f(-increment,height,-100.0);
+		glTexCoord2f(0.0,0.0);
+		glVertex3f(-increment,0.0,-100.0);
+		glEnd();
+		startpoint = increment;
+	}
+		float xStartpoint = increment;
+		startpoint = 5;
+		increment = 0;
+		glBegin(GL_QUADS);
+		glTexCoord2f(1.0,0.0);
+		glVertex3f(-xStartpoint,0.0,startpoint);
+		glTexCoord2f(1.0,1.0);
+		glVertex3f(-xStartpoint, height,startpoint);
+		glTexCoord2f(0.0,1.0);
+		glVertex3f(-xStartpoint,height,increment);
+		glTexCoord2f(0.0,0.0);
+		glVertex3f(-xStartpoint,0.0,increment);
+		glEnd();
+	
+	for(i = 0; i < 10; i++){
+		increment = dist + startpoint;
+		glBegin(GL_QUADS);
+		glTexCoord2f(1.0,0.0);
+		glVertex3f(-xStartpoint,0.0,-startpoint);
+		glTexCoord2f(1.0,1.0);
+		glVertex3f(-xStartpoint, height, -startpoint);
+		glTexCoord2f(0.0,1.0);
+		glVertex3f(-xStartpoint,height,-increment);
+		glTexCoord2f(0.0,0.0);
+		glVertex3f(-xStartpoint,0.0,-increment);
+		glEnd();
+		startpoint = increment;
+	}
+	    
+		startpoint = 5;
+		increment = 0;
+		
+		
+		
+	for(i = 0; i < 10; i++){
+		increment = dist + startpoint;
+		glBegin(GL_QUADS);
+		glTexCoord2f(1.0,0.0);
+		glVertex3f(-xStartpoint,0.0,startpoint);
+		glTexCoord2f(1.0,1.0);
+		glVertex3f(-xStartpoint, height, startpoint);
+		glTexCoord2f(0.0,1.0);
+		glVertex3f(-xStartpoint,height,increment);
+		glTexCoord2f(0.0,0.0);
+		glVertex3f(-xStartpoint,0.0,increment);
+		glEnd();
+		startpoint = increment;
+	}
+		startpoint = 5;
+		increment = 0;
+	
+	for(i = 0; i < 10; i++){
+		increment = dist + startpoint;
+		glBegin(GL_QUADS);
+		glTexCoord2f(1.0,0.0);
+		glVertex3f(xStartpoint,0.0,-startpoint);
+		glTexCoord2f(1.0,1.0);
+		glVertex3f(xStartpoint, height, -startpoint);
+		glTexCoord2f(0.0,1.0);
+		glVertex3f(xStartpoint,height,-increment);
+		glTexCoord2f(0.0,0.0);
+		glVertex3f(xStartpoint,0.0,-increment);
+		glEnd();
+		startpoint = increment;
+	}
+	    
+		startpoint = 5;
+		increment = 0;
+		
+		
+		
+	for(i = 0; i < 10; i++){
+		increment = dist + startpoint;
+		glBegin(GL_QUADS);
+		glTexCoord2f(1.0,0.0);
+		glVertex3f(xStartpoint,0.0,startpoint);
+		glTexCoord2f(1.0,1.0);
+		glVertex3f(xStartpoint, height, startpoint);
+		glTexCoord2f(0.0,1.0);
+		glVertex3f(xStartpoint,height,increment);
+		glTexCoord2f(0.0,0.0);
+		glVertex3f(xStartpoint,0.0,increment);
+		glEnd();
+		startpoint = increment;
+	}
+	
+	
+	
+	
+	
 }
 
 void renderScene(void) {
@@ -186,10 +379,12 @@ void renderScene(void) {
 	// Reset transformations
 	glLoadIdentity();
 	// Set the camera
+	
 	gluLookAt(	x, y, z,
-				x+lx, y+ly, z+lz,
+				x+lx, y, z+lz,
 				0.0f, 1.0f, 0.0f);
-				
+	 //gluPerspective(60.0, 1.0,1.0,100.0);
+	//glFrustum(-1.0,1.0,-1.0,1.0,1.0,100.0);			
 		if(y > 1.0){
 			y -= gravity;
 			gluLookAt(	x, y, z,
@@ -202,19 +397,27 @@ void renderScene(void) {
 		if( y == 1.0){
 			isJumping == true;
 		}
-
+		glColor3f(1.0f, 1.0f, 1.f);
+	if(LoadGLTextures()){
+		glBindTexture(GL_TEXTURE_2D, texture[1]);
+	}
 	// Draw ground
-	glColor3f(0.2f, 0.2f, 0.8f);
+	
 	glBegin(GL_QUADS);
 	glVertex3f(-100.0f, 0.0f, -100.0f);
+	glTexCoord2f(0.0,0.0);
 	glVertex3f(-100.0f, 0.0f, 100.0f);
+	glTexCoord2f(0.0,1.0);
 	glVertex3f( 100.0f, 0.0f, 100.0f);
+	glTexCoord2f(1.0,10.0);
 	glVertex3f( 100.0f, 0.0f, -100.0f);
+	glTexCoord2f(1.0,0.0);
 	glEnd();
 	
 	
 	
 	drawWalls();
+	/*
 	// Draw 36 SnowMen
 	for(int i = -3; i < 3; i++)
 		for(int j=-3; j < 3; j++) {
@@ -222,8 +425,9 @@ void renderScene(void) {
 			glTranslatef(i*10.0,0,j * 10.0);
 			drawSnowMan();
 			glPopMatrix();
-		}
+		}*/
 		glutSwapBuffers();
+		
 	}
 
 
@@ -268,6 +472,7 @@ void processNormalKeys(unsigned char key, int MouseX, int MouseY) {
 	else if(key == 'w'){
 		x+=lx;
 		z += lz;
+	
 	}
 	else if(key == 's'){
 		z -= lz;
