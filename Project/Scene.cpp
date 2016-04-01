@@ -10,16 +10,55 @@ float angle=0.0;
 // actual vector representing the camera’s direction
 float lx=0.0f,lz=-1.0f, ly = 0.0f;
 // XZ position of the camera
-float x=0.0f,y = 1.0f, z=5.0f;
-float gravity = 0.03f;
+float x=5.0f,y = 5.0f, z=0.0f;
+float gravity = 0.8f;
 float jumpHeight = 3.0f;
-float maxJumpHeight = 4.0f;
+float maxJumpHeight = 8.0f;
 bool isJumping = false;
 float moveSpeed = 1.0f;
 float deltaAngle = 0.0f;
 float oldMouseX = 0;
 float oldMouseY = 0;
 unsigned int tex;
+
+int mapHeight = 100;
+int mapWidth = 100;
+int map_x = 9;
+int map_y = 9;
+int steps = 0;
+
+bool isFacingLeft = false;
+bool isFacingRight = false;
+bool isFacingNorth = true;
+bool isFacingSouth = false;
+
+int mapData[20][20] = {
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0.0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+
+};
+
+int curY = 0;
+int curX = 0;
+int rMouseFlag = 0, lMouseFlag = 0;
 
 GLuint	texture[2];			// Storage For One Texture ( NEW )
 
@@ -142,7 +181,18 @@ int LoadGLTextures()                                    // Load Bitmaps And Conv
     return true;                                        // Return Success
 }
 
-
+int isPassable(int x, int y){
+	if(x < 0|| y<0 || x > 19 || y > 19){
+		printf("Collision detected\n");
+		return 0;
+	}
+	if(mapData[y][x] != 0){
+		printf("Collision detected");
+		return 0;
+	}
+	
+	return 1;
+}
 
 void drawSnowMan() {
 
@@ -172,17 +222,21 @@ void drawSnowMan() {
 }
 
 void drawWalls(){
+	
+//	glClear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);	
 	int i;
-	float dist = 10;
+	float dist = 10.55;
 	float increment = 15;
 	float startpoint = 5;
-	float height = 5;
-	glColor3f(1.0,1.0,1.0);
-	if(LoadGLTextures()){
+	float height = 13;
+//	glClearColor3f(0.5,0.2,0.3);
+	
+
+/*	if(LoadGLTextures()){
 		glBindTexture(GL_TEXTURE_2D, texture[0]);
 	}
-	
-	
+	*/
+/*	
 	glBegin(GL_QUADS);
 	glTexCoord2f(1.0,0.0);
 	glVertex3f(startpoint,0.0,100.0);
@@ -281,16 +335,7 @@ void drawWalls(){
 		float xStartpoint = increment;
 		startpoint = 5;
 		increment = 0;
-		glBegin(GL_QUADS);
-		glTexCoord2f(1.0,0.0);
-		glVertex3f(-xStartpoint,0.0,startpoint);
-		glTexCoord2f(1.0,1.0);
-		glVertex3f(-xStartpoint, height,startpoint);
-		glTexCoord2f(0.0,1.0);
-		glVertex3f(-xStartpoint,height,increment);
-		glTexCoord2f(0.0,0.0);
-		glVertex3f(-xStartpoint,0.0,increment);
-		glEnd();
+		
 	
 	for(i = 0; i < 10; i++){
 		increment = dist + startpoint;
@@ -328,6 +373,17 @@ void drawWalls(){
 	}
 		startpoint = 5;
 		increment = 0;
+		
+		glBegin(GL_QUADS);
+		glVertex3f(-xStartpoint,0.0,startpoint);
+		glTexCoord2f(1.0,1.0);
+		glVertex3f(-xStartpoint,height,-startpoint);
+		glTexCoord2f(0.0,1.0);
+		glVertex3f(-xStartpoint,height,startpoint);
+		glTexCoord2f(1.0,0.0);
+		glVertex3f(-xStartpoint,0.0,-startpoint);
+		glTexCoord2f(0.0,0.0);
+		glEnd();
 	
 	for(i = 0; i < 10; i++){
 		increment = dist + startpoint;
@@ -342,11 +398,22 @@ void drawWalls(){
 		glVertex3f(xStartpoint,0.0,-increment);
 		glEnd();
 		startpoint = increment;
+		
 	}
 	    
 		startpoint = 5;
 		increment = 0;
 		
+		glBegin(GL_QUADS);
+		glVertex3f(xStartpoint,height,startpoint);
+		glTexCoord2f(1.0,1.0);
+		glVertex3f(xStartpoint,height,-startpoint);
+		glTexCoord2f(0.0,1.0);
+		glVertex3f(xStartpoint,0.0,-startpoint);
+		glTexCoord2f(1.0,0.0);
+		glVertex3f(xStartpoint,0.0,startpoint);
+		glTexCoord2f(0.0,0.0);
+		glEnd();
 		
 		
 	for(i = 0; i < 10; i++){
@@ -362,10 +429,228 @@ void drawWalls(){
 		glVertex3f(xStartpoint,0.0,increment);
 		glEnd();
 		startpoint = increment;
+		
 	}
 	
+	*/
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-100.0,height,100.0);
+	glVertex3f(100.0,height, 100.0);
+	glVertex3f(100.0,0.0,100.0);
+	glVertex3f(-100.0, 0.0, 100.0);
+	glEnd();
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-100.0,0.0,100.0);
+	glVertex3f(-100.0,0.0,95.0);
+	glVertex3f(-100.0,height,95.0);
+	glVertex3f(-100.0, height, 100.0);
+	glEnd();
 	
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-100.0,height, 95.0);
+	glVertex3f(100.0,height, 95.0);
+	glVertex3f(100.0,0.0, 95.0);
+	glVertex3f(-100.0, 0.0, 95.0);
+	glEnd();
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(100.0,height,100.0);
+	glVertex3f(100.0,height,95.0);
+	glVertex3f(100.0,0.0,95.0);
+	glVertex3f(100.0, 0.0, 100.0);
+	glEnd();
 	
+	glColor3f(1.0,1.0,1.0);
+	glBegin(GL_QUADS);
+	glVertex3f(-100.0,height,100.0);
+	glVertex3f(100.0,height, 100.0);
+	glVertex3f(100.0,0.0,100.0);
+	glVertex3f(-100.0, 0.0, 100.0);
+	glEnd();
+	glBegin(GL_QUADS);
+	glVertex3f(-100.0,0.0,100.0);
+	glVertex3f(-100.0,0.0,95.0);
+	glVertex3f(-100.0,height,95.0);
+	glVertex3f(-100.0, height, 100.0);
+	glEnd();
+	
+	glBegin(GL_QUADS);
+	glVertex3f(-100.0,height, 95.0);
+	glVertex3f(100.0,height, 95.0);
+	glVertex3f(100.0,0.0, 95.0);
+	glVertex3f(-100.0, 0.0, 95.0);
+	glEnd();
+	glBegin(GL_QUADS);
+	glVertex3f(100.0,height,100.0);
+	glVertex3f(100.0,height,95.0);
+	glVertex3f(100.0,0.0,95.0);
+	glVertex3f(100.0, 0.0, 100.0);
+	glEnd();
+	
+	//SouthWall
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-100.0,height,-100.0);
+	glVertex3f(100.0,height, -100.0);
+	glVertex3f(100.0,0.0,-100.0);
+	glVertex3f(-100.0, 0.0, -100.0);
+	glEnd();
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-100.0,0.0,-100.0);
+	glVertex3f(-100.0,0.0,-95.0);
+	glVertex3f(-100.0,height,-95.0);
+	glVertex3f(-100.0, height, -100.0);
+	glEnd();
+	
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-100.0,height, -95.0);
+	glVertex3f(100.0,height, -95.0);
+	glVertex3f(100.0,0.0, -95.0);
+	glVertex3f(-100.0, 0.0, -95.0);
+	glEnd();
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(100.0,height,-100.0);
+	glVertex3f(100.0,height,-95.0);
+	glVertex3f(100.0,0.0,-95.0);
+	glVertex3f(100.0, 0.0, -100.0);
+	glEnd();
+	
+	glColor3f(1.0,1.0,1.0);
+	glBegin(GL_QUADS);
+	glVertex3f(-100.0,height,-100.0);
+	glVertex3f(100.0,height, -100.0);
+	glVertex3f(100.0,0.0,-100.0);
+	glVertex3f(-100.0, 0.0, -100.0);
+	glEnd();
+	glBegin(GL_QUADS);
+	glVertex3f(-100.0,0.0,-100.0);
+	glVertex3f(-100.0,0.0,-95.0);
+	glVertex3f(-100.0,height,-95.0);
+	glVertex3f(-100.0, height, -100.0);
+	glEnd();
+	
+	glBegin(GL_QUADS);
+	glVertex3f(-100.0,height, -95.0);
+	glVertex3f(100.0,height, -95.0);
+	glVertex3f(100.0,0.0, -95.0);
+	glVertex3f(-100.0, 0.0, -95.0);
+	glEnd();
+	glBegin(GL_QUADS);
+	glVertex3f(100.0,height,-100.0);
+	glVertex3f(100.0,height,-95.0);
+	glVertex3f(100.0,0.0,-95.0);
+	glVertex3f(100.0, 0.0, -100.0);
+	glEnd();
+	
+	//Right Wall
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(100.0,height,100.0);
+	glVertex3f(100.0,height, -100.0);
+	glVertex3f(100.0,0.0,-100.0);
+	glVertex3f(100.0, 0.0, 100.0);
+	glEnd();
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(100.0,0.0,-100.0);
+	glVertex3f(95.0,0.0,-100.0);
+	glVertex3f(95.0,height,-100.0);
+	glVertex3f(100.0, height, -100.0);
+	glEnd();
+	
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(95.0,height, -100.0);
+	glVertex3f(95.0,height, 100.0);
+	glVertex3f(95.0,0.0, 100.0);
+	glVertex3f(95.0, 0.0, -100.0);
+	glEnd();
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(100.0,height,100.0);
+	glVertex3f(95.0,height,100.0);
+	glVertex3f(95.0,0.0,100.0);
+	glVertex3f(100.0, 0.0, 100.0);
+	glEnd();
+	
+	glColor3f(1.0,1.0,1.0);
+	glBegin(GL_QUADS);
+	glVertex3f(100.0,height,100.0);
+	glVertex3f(100.0,height, -100.0);
+	glVertex3f(100.0,0.0,-100.0);
+	glVertex3f(100.0, 0.0, 100.0);
+	glEnd();
+	glBegin(GL_QUADS);
+	glVertex3f(100.0,0.0,-100.0);
+	glVertex3f(95.0,0.0,-100.0);
+	glVertex3f(95.0,height,-100.0);
+	glVertex3f(100.0, height, -100.0);
+	glEnd();
+	
+	glBegin(GL_QUADS);
+	glVertex3f(95.0,height, -100.0);
+	glVertex3f(95.0,height, 100.0);
+	glVertex3f(95.0,0.0, 100.0);
+	glVertex3f(95.0, 0.0, -100.0);
+	glEnd();
+	glBegin(GL_QUADS);
+	glVertex3f(100.0,height,100.0);
+	glVertex3f(95.0,height,100.0);
+	glVertex3f(95.0,0.0,100.0);
+	glVertex3f(100.0, 0.0, 100.0);
+	glEnd();
+	
+	//Left Wall
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-100.0,height,100.0);
+	glVertex3f(-100.0,height, -100.0);
+	glVertex3f(-100.0,0.0,-100.0);
+	glVertex3f(-100.0, 0.0, 100.0);
+	glEnd();
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-100.0,0.0,-100.0);
+	glVertex3f(-95.0,0.0,-100.0);
+	glVertex3f(-95.0,height,-100.0);
+	glVertex3f(-100.0, height, -100.0);
+	glEnd();
+	
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-95.0,height, -100.0);
+	glVertex3f(-95.0,height, 100.0);
+	glVertex3f(-95.0,0.0, 100.0);
+	glVertex3f(-95.0, 0.0, -100.0);
+	glEnd();
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-100.0,height,100.0);
+	glVertex3f(-95.0,height,100.0);
+	glVertex3f(-95.0,0.0,100.0);
+	glVertex3f(-100.0, 0.0, 100.0);
+	glEnd();
+	
+	glColor3f(1.0,1.0,1.0);
+	glBegin(GL_QUADS);
+	glVertex3f(-100.0,height,100.0);
+	glVertex3f(-100.0,height, -100.0);
+	glVertex3f(-100.0,0.0,-100.0);
+	glVertex3f(-100.0, 0.0, 100.0);
+	glEnd();
+	glBegin(GL_QUADS);
+	glVertex3f(-100.0,0.0,-100.0);
+	glVertex3f(-95.0,0.0,-100.0);
+	glVertex3f(-95.0,height,-100.0);
+	glVertex3f(-100.0, height, -100.0);
+	glEnd();
+	
+	glBegin(GL_QUADS);
+	glVertex3f(-95.0,height, -100.0);
+	glVertex3f(-95.0,height, 100.0);
+	glVertex3f(-95.0,0.0, 100.0);
+	glVertex3f(-95.0, 0.0, -100.0);
+	glEnd();
+	glBegin(GL_QUADS);
+	glVertex3f(-100.0,height,100.0);
+	glVertex3f(-95.0,height,100.0);
+	glVertex3f(-95.0,0.0,100.0);
+	glVertex3f(-100.0, 0.0, 100.0);
+	glEnd();
 	
 	
 }
@@ -379,16 +664,16 @@ void renderScene(void) {
 	// Reset transformations
 	glLoadIdentity();
 	// Set the camera
-	
+//	glFrustum(-1.0,1.0,-1.0,1.0,1.0,100.0);
 	gluLookAt(	x, y, z,
-				x+lx, y, z+lz,
+				x+lx, y + ly, z+lz,
 				0.0f, 1.0f, 0.0f);
 	 //gluPerspective(60.0, 1.0,1.0,100.0);
-	//glFrustum(-1.0,1.0,-1.0,1.0,1.0,100.0);			
-		if(y > 1.0){
+//	glFrustum(-1.0,1.0,-1.0,1.0,1.0,100.0);			
+		if(y > 5.0){
 			y -= gravity;
 			gluLookAt(	x, y, z,
-				x+lx, y, z+lz,
+				x+lx, y + ly, z+lz,
 				0.0f, 1.0f, 0.0f);
 				
 		}
@@ -397,25 +682,25 @@ void renderScene(void) {
 		if( y == 1.0){
 			isJumping == true;
 		}
-		glColor3f(1.0f, 1.0f, 1.f);
-	if(LoadGLTextures()){
+		glColor3f(0.0f, 1.0f, 1.f);
+/*	if(LoadGLTextures()){
 		glBindTexture(GL_TEXTURE_2D, texture[1]);
 	}
-	// Draw ground
-	
+	*/
+	// Draw ground	
 	glBegin(GL_QUADS);
-	glVertex3f(-100.0f, 0.0f, -100.0f);
+	glVertex3f(-100.0, 0.0f, -100.0f);
 	glTexCoord2f(0.0,0.0);
 	glVertex3f(-100.0f, 0.0f, 100.0f);
-	glTexCoord2f(0.0,1.0);
+	glTexCoord2f(0.0,10.0);
 	glVertex3f( 100.0f, 0.0f, 100.0f);
-	glTexCoord2f(1.0,10.0);
+	glTexCoord2f(10.0,0.0);
 	glVertex3f( 100.0f, 0.0f, -100.0f);
-	glTexCoord2f(1.0,0.0);
+	glTexCoord2f(10.0,10.0);
 	glEnd();
 	
 	
-	
+
 	drawWalls();
 	/*
 	// Draw 36 SnowMen
@@ -455,28 +740,122 @@ void changeSize(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
+void checkFacing(){
+	if(angle <= 0.3 && angle >= -0.3){
+		isFacingNorth = true;
+		isFacingLeft = false;
+		isFacingSouth = false;
+		isFacingRight = false;
+	}
+	if(angle > 0.3 && angle <= 1.2){
+		isFacingRight = true;
+		isFacingNorth = false;
+		isFacingLeft = false;
+		isFacingSouth = false;
+	}
+	if(angle > 1.2 && angle < -1.2){
+		isFacingSouth = true;
+		isFacingLeft = false;
+		isFacingRight = false;
+		isFacingNorth = false;
+	}
+	if(angle < -0.3 && angle >= 1.2){
+		isFacingLeft = true;
+		isFacingSouth = false;
+		isFacingRight = false;
+		isFacingNorth = false;
+	}
+	
+}
+
 void processNormalKeys(unsigned char key, int MouseX, int MouseY) {
 
 	if (key == 27)
 	exit(0);
 	else if(key == 'a'){
 		angle -= 0.1;
+		if(angle < -1.7){
+			angle = 1.5;
+		}
 		lx = sin(angle);
 		lz = cos(angle) * -1;
+		printf("angle: %f\n", angle);
+		checkFacing();
+		
 	}
 	else if(key == 'd'){
 		angle += 0.1;
+		if(angle > 1.7){
+			angle = -1.5;
+		}
 		lx = sin(angle);
 		lz = cos(angle) * -1;
+		printf("angle: %f\n", angle);
+		checkFacing();
 	}
 	else if(key == 'w'){
-		x+=lx;
-		z += lz;
+		if(isPassable(map_x,map_y+1)){
+			x+=lx;
+			z += lz;
+			steps++;
+			if(isFacingNorth){
+					if(steps >= 10){
+					map_y++;
+					steps = 0;	
+				}
+			}
+			if(isFacingSouth){
+				if(steps >=10){
+				map_y--;
+				steps = 0;
+				}
+			}
+			if(isFacingRight){
+				if(steps >= 10){
+				map_x++;
+				steps = 0;	
+				}
+			}
+			if(isFacingLeft){
+				if(steps >= 10){
+				map_x--;
+				steps = 0;	
+				}
+			}
+		}
+		
 	
 	}
 	else if(key == 's'){
-		z -= lz;
-		x-=lx;
+		if(isPassable(map_x,map_y-1)){
+			z -= lz;
+			x-=lx;
+			steps++;
+			if(isFacingNorth){
+				if(steps >=10){
+				map_y--;
+				steps = 0;
+				}
+			}
+			if(isFacingSouth){
+				if(steps >= 10){
+				map_y++;
+				steps = 0;	
+				}
+			}
+			if(isFacingRight){
+				if(steps >= 10){
+				map_x--;
+				steps = 0;	
+				}
+			}
+			if(isFacingLeft){
+				if(steps >= 10){
+				map_x++;
+				steps = 0;	
+				}
+			}
+		}
 	}
 }
 
@@ -500,6 +879,49 @@ void moveMouse(int MouseX, int MouseY)
   oldMouseX = MouseX;
   oldMouseY = MouseY;
   
+}
+
+void mouseFunc(int btn, int state, int x, int y){
+
+	if(btn == GLUT_RIGHT_BUTTON && state == GLUT_DOWN){
+			rMouseFlag = 1;
+			curX = x;
+			curY = y;
+			}
+	else{
+		rMouseFlag = 0;
+	}
+		if(btn == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
+			lMouseFlag = 1;
+			curX = x;
+			curY = y;
+			}
+	else{
+		lMouseFlag = 0;
+	}
+}
+
+void motionFunc(int x, int y){
+	int dy = curY - y;
+	int dx = curX - x;
+	if(rMouseFlag == 1){
+		if(dx > 0){
+			angle -= 0.02;
+		}
+		if(dx < 0){
+			angle += 0.02;
+		}
+		lx = sin(angle)*(hypot(lx, lz));
+		lz = -cos(angle)*(hypot(lx, lz));
+	}
+	if(lMouseFlag ==1){
+		if(dy > 0){
+			ly +=0.02;
+		}
+		if(dy < 0){
+			ly -=0.02;
+		}
+	}
 }
 
 void processSpecialKeys(int key, int xx, int yy) {
@@ -557,18 +979,21 @@ int main(int argc, char **argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100,100);
-	glutInitWindowSize(600,600);
-	glutCreateWindow("Lighthouse3D – GLUT Tutorial");
+	glutInitWindowSize(800,800);
+	glutCreateWindow("MP");
 	// OpenGL init
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
 	// register callbacks
+//	drawWalls();
 	glutDisplayFunc(renderScene);
 	glutReshapeFunc(changeSize);
 //	glutFullScreen();
 	glutIdleFunc(renderScene);
 	glutKeyboardFunc(processNormalKeys);
 	glutSpecialFunc(processSpecialKeys);
+	glutMotionFunc(motionFunc);
+	glutMouseFunc(mouseFunc);
 //	glutPassiveMotionFunc(moveMouse);
 	
 	
