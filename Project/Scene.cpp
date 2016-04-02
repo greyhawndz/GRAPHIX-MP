@@ -7,7 +7,7 @@
 #define GL_BGR 0x80E0 
 // angle of rotation for the camera direction
 float angle=0.0;
-// actual vector representing the camera’s direction
+// actual vector representing the cameraâ€™s direction
 float lx=0.0f,lz=-1.0f, ly = 0.0f;
 // XZ position of the camera
 float x=5.0f,y = 5.0f, z=0.0f;
@@ -741,25 +741,25 @@ void changeSize(int w, int h) {
 }
 
 void checkFacing(){
-	if(angle <= 0.3 && angle >= -0.3){
+	if(angle <= 0.7 && angle >= -0.7){
 		isFacingNorth = true;
 		isFacingLeft = false;
 		isFacingSouth = false;
 		isFacingRight = false;
 	}
-	if(angle > 0.3 && angle <= 1.2){
+	if(angle > 0.7 && angle < 2.5){
 		isFacingRight = true;
 		isFacingNorth = false;
 		isFacingLeft = false;
 		isFacingSouth = false;
 	}
-	if(angle > 1.2 && angle < -1.2){
+	if(angle >= 2.5 && angle <= -2.5){
 		isFacingSouth = true;
 		isFacingLeft = false;
 		isFacingRight = false;
 		isFacingNorth = false;
 	}
-	if(angle < -0.3 && angle >= 1.2){
+	if(angle < -0.7 && angle > -2.5){
 		isFacingLeft = true;
 		isFacingSouth = false;
 		isFacingRight = false;
@@ -774,8 +774,8 @@ void processNormalKeys(unsigned char key, int MouseX, int MouseY) {
 	exit(0);
 	else if(key == 'a'){
 		angle -= 0.1;
-		if(angle < -1.7){
-			angle = 1.5;
+		if(angle < -3.3){
+			angle = 3.1;
 		}
 		lx = sin(angle);
 		lz = cos(angle) * -1;
@@ -785,8 +785,8 @@ void processNormalKeys(unsigned char key, int MouseX, int MouseY) {
 	}
 	else if(key == 'd'){
 		angle += 0.1;
-		if(angle > 1.7){
-			angle = -1.5;
+		if(angle > 3.3){
+			angle = -3.1;
 		}
 		lx = sin(angle);
 		lz = cos(angle) * -1;
