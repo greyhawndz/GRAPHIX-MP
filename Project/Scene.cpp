@@ -913,6 +913,7 @@ void motionFunc(int x, int y){
 		}
 		lx = sin(angle)*(hypot(lx, lz));
 		lz = -cos(angle)*(hypot(lx, lz));
+		checkFacing();
 	}
 	if(lMouseFlag ==1){
 		if(dy > 0){
