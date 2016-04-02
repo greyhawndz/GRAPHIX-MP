@@ -437,7 +437,7 @@ void drawWalls(){
 	glBegin(GL_LINE_LOOP);
 	glVertex3f(-60.0,height,60.0);
 	glVertex3f(60.0,height, 60.0);
-	glVertex3f(60.0,0.0,100.0);
+	glVertex3f(60.0,0.0,60.0);
 	glVertex3f(-60.0, 0.0, 60.0);
 	glEnd();
 	glBegin(GL_LINE_LOOP);
