@@ -21,8 +21,8 @@ float oldMouseX = 0;
 float oldMouseY = 0;
 unsigned int tex;
 
-int mapHeight = 100;
-int mapWidth = 100;
+int mapHeight = 60;
+int mapWidth = 60;
 int map_x = 9;
 int map_y = 9;
 int steps = 0;
@@ -435,221 +435,221 @@ void drawWalls(){
 	*/
 	glColor3f(0.0,0.0,0.0);
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(-100.0,height,100.0);
-	glVertex3f(100.0,height, 100.0);
-	glVertex3f(100.0,0.0,100.0);
-	glVertex3f(-100.0, 0.0, 100.0);
+	glVertex3f(-60.0,height,60.0);
+	glVertex3f(60.0,height, 60.0);
+	glVertex3f(60.0,0.0,100.0);
+	glVertex3f(-60.0, 0.0, 60.0);
 	glEnd();
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(-100.0,0.0,100.0);
-	glVertex3f(-100.0,0.0,95.0);
-	glVertex3f(-100.0,height,95.0);
-	glVertex3f(-100.0, height, 100.0);
+	glVertex3f(-60.0,0.0,60.0);
+	glVertex3f(-60.0,0.0,55.0);
+	glVertex3f(-60.0,height,55.0);
+	glVertex3f(-60.0, height, 60.0);
 	glEnd();
 	
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(-100.0,height, 95.0);
-	glVertex3f(100.0,height, 95.0);
-	glVertex3f(100.0,0.0, 95.0);
-	glVertex3f(-100.0, 0.0, 95.0);
+	glVertex3f(-60.0,height, 55.0);
+	glVertex3f(60.0,height, 55.0);
+	glVertex3f(60.0,0.0, 55.0);
+	glVertex3f(-60.0, 0.0, 55.0);
 	glEnd();
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(100.0,height,100.0);
-	glVertex3f(100.0,height,95.0);
-	glVertex3f(100.0,0.0,95.0);
-	glVertex3f(100.0, 0.0, 100.0);
+	glVertex3f(60.0,height,60.0);
+	glVertex3f(60.0,height,55.0);
+	glVertex3f(60.0,0.0,55.0);
+	glVertex3f(60.0, 0.0, 60.0);
 	glEnd();
 	
 	glColor3f(1.0,1.0,1.0);
 	glBegin(GL_QUADS);
-	glVertex3f(-100.0,height,100.0);
-	glVertex3f(100.0,height, 100.0);
-	glVertex3f(100.0,0.0,100.0);
-	glVertex3f(-100.0, 0.0, 100.0);
+	glVertex3f(-60.0,height,60.0);
+	glVertex3f(60.0,height, 60.0);
+	glVertex3f(60.0,0.0,60.0);
+	glVertex3f(-60.0, 0.0, 60.0);
 	glEnd();
 	glBegin(GL_QUADS);
-	glVertex3f(-100.0,0.0,100.0);
-	glVertex3f(-100.0,0.0,95.0);
-	glVertex3f(-100.0,height,95.0);
-	glVertex3f(-100.0, height, 100.0);
+	glVertex3f(-60.0,0.0,60.0);
+	glVertex3f(-60.0,0.0,55.0);
+	glVertex3f(-60.0,height,55.0);
+	glVertex3f(-60.0, height, 60.0);
 	glEnd();
 	
 	glBegin(GL_QUADS);
-	glVertex3f(-100.0,height, 95.0);
-	glVertex3f(100.0,height, 95.0);
-	glVertex3f(100.0,0.0, 95.0);
-	glVertex3f(-100.0, 0.0, 95.0);
+	glVertex3f(-60.0,height, 55.0);
+	glVertex3f(60.0,height, 55.0);
+	glVertex3f(60.0,0.0, 55.0);
+	glVertex3f(-60.0, 0.0, 55.0);
 	glEnd();
 	glBegin(GL_QUADS);
-	glVertex3f(100.0,height,100.0);
-	glVertex3f(100.0,height,95.0);
-	glVertex3f(100.0,0.0,95.0);
-	glVertex3f(100.0, 0.0, 100.0);
+	glVertex3f(60.0,height,60.0);
+	glVertex3f(60.0,height,55.0);
+	glVertex3f(60.0,0.0,55.0);
+	glVertex3f(60.0, 0.0, 60.0);
 	glEnd();
 	
 	//SouthWall
 	glColor3f(0.0,0.0,0.0);
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(-100.0,height,-100.0);
-	glVertex3f(100.0,height, -100.0);
-	glVertex3f(100.0,0.0,-100.0);
-	glVertex3f(-100.0, 0.0, -100.0);
+	glVertex3f(-60.0,height,-60.0);
+	glVertex3f(60.0,height, -60.0);
+	glVertex3f(60.0,0.0,-60.0);
+	glVertex3f(-60.0, 0.0, -60.0);
 	glEnd();
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(-100.0,0.0,-100.0);
-	glVertex3f(-100.0,0.0,-95.0);
-	glVertex3f(-100.0,height,-95.0);
-	glVertex3f(-100.0, height, -100.0);
+	glVertex3f(-60.0,0.0,-60.0);
+	glVertex3f(-60.0,0.0,-55.0);
+	glVertex3f(-60.0,height,-55.0);
+	glVertex3f(-60.0, height, -60.0);
 	glEnd();
 	
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(-100.0,height, -95.0);
-	glVertex3f(100.0,height, -95.0);
-	glVertex3f(100.0,0.0, -95.0);
-	glVertex3f(-100.0, 0.0, -95.0);
+	glVertex3f(-60.0,height, -55.0);
+	glVertex3f(60.0,height, -55.0);
+	glVertex3f(60.0,0.0, -55.0);
+	glVertex3f(-60.0, 0.0, -55.0);
 	glEnd();
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(100.0,height,-100.0);
-	glVertex3f(100.0,height,-95.0);
-	glVertex3f(100.0,0.0,-95.0);
-	glVertex3f(100.0, 0.0, -100.0);
+	glVertex3f(60.0,height,-60.0);
+	glVertex3f(60.0,height,-55.0);
+	glVertex3f(60.0,0.0,-55.0);
+	glVertex3f(60.0, 0.0, -60.0);
 	glEnd();
 	
 	glColor3f(1.0,1.0,1.0);
 	glBegin(GL_QUADS);
-	glVertex3f(-100.0,height,-100.0);
-	glVertex3f(100.0,height, -100.0);
-	glVertex3f(100.0,0.0,-100.0);
-	glVertex3f(-100.0, 0.0, -100.0);
+	glVertex3f(-60.0,height,-60.0);
+	glVertex3f(60.0,height, -60.0);
+	glVertex3f(60.0,0.0,-60.0);
+	glVertex3f(-60.0, 0.0, -60.0);
 	glEnd();
 	glBegin(GL_QUADS);
-	glVertex3f(-100.0,0.0,-100.0);
-	glVertex3f(-100.0,0.0,-95.0);
-	glVertex3f(-100.0,height,-95.0);
-	glVertex3f(-100.0, height, -100.0);
+	glVertex3f(-60.0,0.0,-60.0);
+	glVertex3f(-60.0,0.0,-55.0);
+	glVertex3f(-60.0,height,-55.0);
+	glVertex3f(-60.0, height, -60.0);
 	glEnd();
 	
 	glBegin(GL_QUADS);
-	glVertex3f(-100.0,height, -95.0);
-	glVertex3f(100.0,height, -95.0);
-	glVertex3f(100.0,0.0, -95.0);
-	glVertex3f(-100.0, 0.0, -95.0);
+	glVertex3f(-60.0,height, -55.0);
+	glVertex3f(60.0,height, -55.0);
+	glVertex3f(60.0,0.0, -55.0);
+	glVertex3f(-60.0, 0.0, -55.0);
 	glEnd();
 	glBegin(GL_QUADS);
-	glVertex3f(100.0,height,-100.0);
-	glVertex3f(100.0,height,-95.0);
-	glVertex3f(100.0,0.0,-95.0);
-	glVertex3f(100.0, 0.0, -100.0);
+	glVertex3f(60.0,height,-60.0);
+	glVertex3f(60.0,height,-55.0);
+	glVertex3f(60.0,0.0,-55.0);
+	glVertex3f(60.0, 0.0, -60.0);
 	glEnd();
 	
 	//Right Wall
 	glColor3f(0.0,0.0,0.0);
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(100.0,height,100.0);
-	glVertex3f(100.0,height, -100.0);
-	glVertex3f(100.0,0.0,-100.0);
-	glVertex3f(100.0, 0.0, 100.0);
+	glVertex3f(60.0,height,60.0);
+	glVertex3f(60.0,height, -60.0);
+	glVertex3f(60.0,0.0,-60.0);
+	glVertex3f(60.0, 0.0, 60.0);
 	glEnd();
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(100.0,0.0,-100.0);
-	glVertex3f(95.0,0.0,-100.0);
-	glVertex3f(95.0,height,-100.0);
-	glVertex3f(100.0, height, -100.0);
+	glVertex3f(60.0,0.0,-60.0);
+	glVertex3f(55.0,0.0,-60.0);
+	glVertex3f(55.0,height,-60.0);
+	glVertex3f(60.0, height, -60.0);
 	glEnd();
 	
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(95.0,height, -100.0);
-	glVertex3f(95.0,height, 100.0);
-	glVertex3f(95.0,0.0, 100.0);
-	glVertex3f(95.0, 0.0, -100.0);
+	glVertex3f(55.0,height, -60.0);
+	glVertex3f(55.0,height, 60.0);
+	glVertex3f(55.0,0.0, 60.0);
+	glVertex3f(55.0, 0.0, -60.0);
 	glEnd();
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(100.0,height,100.0);
-	glVertex3f(95.0,height,100.0);
-	glVertex3f(95.0,0.0,100.0);
-	glVertex3f(100.0, 0.0, 100.0);
+	glVertex3f(60.0,height,60.0);
+	glVertex3f(55.0,height,60.0);
+	glVertex3f(55.0,0.0,60.0);
+	glVertex3f(60.0, 0.0, 60.0);
 	glEnd();
 	
 	glColor3f(1.0,1.0,1.0);
 	glBegin(GL_QUADS);
-	glVertex3f(100.0,height,100.0);
-	glVertex3f(100.0,height, -100.0);
-	glVertex3f(100.0,0.0,-100.0);
-	glVertex3f(100.0, 0.0, 100.0);
+	glVertex3f(60.0,height,60.0);
+	glVertex3f(60.0,height, -60.0);
+	glVertex3f(60.0,0.0,-60.0);
+	glVertex3f(60.0, 0.0, 60.0);
 	glEnd();
 	glBegin(GL_QUADS);
-	glVertex3f(100.0,0.0,-100.0);
-	glVertex3f(95.0,0.0,-100.0);
-	glVertex3f(95.0,height,-100.0);
-	glVertex3f(100.0, height, -100.0);
+	glVertex3f(60.0,0.0,-60.0);
+	glVertex3f(55.0,0.0,-60.0);
+	glVertex3f(55.0,height,-60.0);
+	glVertex3f(60.0, height, -60.0);
 	glEnd();
 	
 	glBegin(GL_QUADS);
-	glVertex3f(95.0,height, -100.0);
-	glVertex3f(95.0,height, 100.0);
-	glVertex3f(95.0,0.0, 100.0);
-	glVertex3f(95.0, 0.0, -100.0);
+	glVertex3f(55.0,height, -60.0);
+	glVertex3f(55.0,height, 60.0);
+	glVertex3f(55.0,0.0, 60.0);
+	glVertex3f(55.0, 0.0, -60.0);
 	glEnd();
 	glBegin(GL_QUADS);
-	glVertex3f(100.0,height,100.0);
-	glVertex3f(95.0,height,100.0);
-	glVertex3f(95.0,0.0,100.0);
-	glVertex3f(100.0, 0.0, 100.0);
+	glVertex3f(60.0,height,60.0);
+	glVertex3f(55.0,height,60.0);
+	glVertex3f(55.0,0.0,60.0);
+	glVertex3f(60.0, 0.0, 60.0);
 	glEnd();
 	
 	//Left Wall
 	glColor3f(0.0,0.0,0.0);
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(-100.0,height,100.0);
-	glVertex3f(-100.0,height, -100.0);
-	glVertex3f(-100.0,0.0,-100.0);
-	glVertex3f(-100.0, 0.0, 100.0);
+	glVertex3f(-60.0,height,60.0);
+	glVertex3f(-60.0,height, -60.0);
+	glVertex3f(-60.0,0.0,-60.0);
+	glVertex3f(-60.0, 0.0, 60.0);
 	glEnd();
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(-100.0,0.0,-100.0);
-	glVertex3f(-95.0,0.0,-100.0);
-	glVertex3f(-95.0,height,-100.0);
-	glVertex3f(-100.0, height, -100.0);
+	glVertex3f(-60.0,0.0,-60.0);
+	glVertex3f(-55.0,0.0,-60.0);
+	glVertex3f(-55.0,height,-60.0);
+	glVertex3f(-60.0, height, -60.0);
 	glEnd();
 	
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(-95.0,height, -100.0);
-	glVertex3f(-95.0,height, 100.0);
-	glVertex3f(-95.0,0.0, 100.0);
-	glVertex3f(-95.0, 0.0, -100.0);
+	glVertex3f(-55.0,height, -60.0);
+	glVertex3f(-55.0,height, 60.0);
+	glVertex3f(-55.0,0.0, 60.0);
+	glVertex3f(-55.0, 0.0, -60.0);
 	glEnd();
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(-100.0,height,100.0);
-	glVertex3f(-95.0,height,100.0);
-	glVertex3f(-95.0,0.0,100.0);
-	glVertex3f(-100.0, 0.0, 100.0);
+	glVertex3f(-60.0,height,60.0);
+	glVertex3f(-55.0,height,60.0);
+	glVertex3f(-55.0,0.0,60.0);
+	glVertex3f(-60.0, 0.0, 60.0);
 	glEnd();
 	
 	glColor3f(1.0,1.0,1.0);
 	glBegin(GL_QUADS);
-	glVertex3f(-100.0,height,100.0);
-	glVertex3f(-100.0,height, -100.0);
-	glVertex3f(-100.0,0.0,-100.0);
-	glVertex3f(-100.0, 0.0, 100.0);
+	glVertex3f(-60.0,height,60.0);
+	glVertex3f(-60.0,height, -60.0);
+	glVertex3f(-60.0,0.0,-60.0);
+	glVertex3f(-60.0, 0.0, 60.0);
 	glEnd();
 	glBegin(GL_QUADS);
-	glVertex3f(-100.0,0.0,-100.0);
-	glVertex3f(-95.0,0.0,-100.0);
-	glVertex3f(-95.0,height,-100.0);
-	glVertex3f(-100.0, height, -100.0);
+	glVertex3f(-60.0,0.0,-60.0);
+	glVertex3f(-55.0,0.0,-60.0);
+	glVertex3f(-55.0,height,-60.0);
+	glVertex3f(-60.0, height, -60.0);
 	glEnd();
 	
 	glBegin(GL_QUADS);
-	glVertex3f(-95.0,height, -100.0);
-	glVertex3f(-95.0,height, 100.0);
-	glVertex3f(-95.0,0.0, 100.0);
-	glVertex3f(-95.0, 0.0, -100.0);
+	glVertex3f(-55.0,height, -60.0);
+	glVertex3f(-55.0,height, 60.0);
+	glVertex3f(-55.0,0.0, 60.0);
+	glVertex3f(-55.0, 0.0, -60.0);
 	glEnd();
 	glBegin(GL_QUADS);
-	glVertex3f(-100.0,height,100.0);
-	glVertex3f(-95.0,height,100.0);
-	glVertex3f(-95.0,0.0,100.0);
-	glVertex3f(-100.0, 0.0, 100.0);
+	glVertex3f(-60.0,height,60.0);
+	glVertex3f(-55.0,height,60.0);
+	glVertex3f(-55.0,0.0,60.0);
+	glVertex3f(-60.0, 0.0, 60.0);
 	glEnd();
 	
 	
@@ -799,25 +799,25 @@ void processNormalKeys(unsigned char key, int MouseX, int MouseY) {
 			z += lz;
 			steps++;
 			if(isFacingNorth){
-					if(steps >= 10){
+					if(steps >= 6){
 					map_y++;
 					steps = 0;	
 				}
 			}
 			if(isFacingSouth){
-				if(steps >=10){
+				if(steps >=6){
 				map_y--;
 				steps = 0;
 				}
 			}
 			if(isFacingRight){
-				if(steps >= 10){
+				if(steps >= 6){
 				map_x++;
 				steps = 0;	
 				}
 			}
 			if(isFacingLeft){
-				if(steps >= 10){
+				if(steps >= 6){
 				map_x--;
 				steps = 0;	
 				}
@@ -832,25 +832,25 @@ void processNormalKeys(unsigned char key, int MouseX, int MouseY) {
 			x-=lx;
 			steps++;
 			if(isFacingNorth){
-				if(steps >=10){
+				if(steps >=6){
 				map_y--;
 				steps = 0;
 				}
 			}
 			if(isFacingSouth){
-				if(steps >= 10){
+				if(steps >=6){
 				map_y++;
 				steps = 0;	
 				}
 			}
 			if(isFacingRight){
-				if(steps >= 10){
+				if(steps >= 6){
 				map_x--;
 				steps = 0;	
 				}
 			}
 			if(isFacingLeft){
-				if(steps >= 10){
+				if(steps >= 6){
 				map_x++;
 				steps = 0;	
 				}
