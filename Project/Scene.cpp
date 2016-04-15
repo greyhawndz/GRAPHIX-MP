@@ -349,7 +349,7 @@ bool isFacingRight = false;
 bool isFacingNorth = false;
 bool isFacingSouth = false;
 
-GLuint	texture[7];			// Storage For One Texture ( NEW )
+GLuint	texture[22];			// Storage For One Texture ( NEW )
 
 /*
 // Data read from the header of the BMP file
@@ -482,6 +482,126 @@ int LoadGLTextures()                                    // Load Bitmaps And Conv
         texture[6] = SOIL_load_OGL_texture
         (
         "the scream.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[7] = SOIL_load_OGL_texture
+        (
+        "impression.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[8] = SOIL_load_OGL_texture
+        (
+        "bridge.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[9] = SOIL_load_OGL_texture
+        (
+        "old guitarist.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[10] = SOIL_load_OGL_texture
+        (
+        "lilies.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[11] = SOIL_load_OGL_texture
+        (
+        "spoliarium.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[12] = SOIL_load_OGL_texture
+        (
+        "lastsupper.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[13] = SOIL_load_OGL_texture
+        (
+        "kabuki.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[14] = SOIL_load_OGL_texture
+        (
+        "adam.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[15] = SOIL_load_OGL_texture
+        (
+        "apple.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[16] = SOIL_load_OGL_texture
+        (
+        "still.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[17] = SOIL_load_OGL_texture
+        (
+        "fruit.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[18] = SOIL_load_OGL_texture
+        (
+        "cafe.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[19] = SOIL_load_OGL_texture
+        (
+        "night.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[20] = SOIL_load_OGL_texture
+        (
+        "memory.bmp",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+        
+        texture[21] = SOIL_load_OGL_texture
+        (
+        "sad.bmp",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -632,7 +752,7 @@ void drawPainting(){
 	glVertex3f(-5.0,10.0,-50.0);
 	glEnd();
 	
-	
+	glColor3f(0.0,0.0,0.0);
 	glBegin(GL_LINE_LOOP);
 	glVertex3f(-5.0,4.0,-50.0);
 	glVertex3f(5.0,4.0,-50.0);
@@ -640,13 +760,102 @@ void drawPainting(){
 	glVertex3f(-5.0,10.0,-50.0);
 	glEnd();
 	
-
+	//draw last supper
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[12]);
 	
-	glBindTexture(GL_TEXTURE_2D, texture[4]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(-20.0,4.0,-50.0);
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(-10.0,4.0,-50.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(-10.0,10.0,-50.0);
+	glTexCoord2f(0.0,1.0);
+	glVertex3f(-20.0,10.0,-50.0);
+	glEnd();
+	
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-20.0,4.0,-50.0);
+	glVertex3f(-10.0,4.0,-50.0);
+	glVertex3f(-10.0,10.0,-50.0);
+	glVertex3f(-20.0,10.0,-50.0);
+	glEnd();
+	
+	//draw old guitarist
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[9]);
+	
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(-30.0,4.0,-50.0);
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(-25.0,4.0,-50.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(-25.0,13.0,-50.0);
+	glTexCoord2f(0.0,1.0);
+	glVertex3f(-30.0,13.0,-50.0);
+	glEnd();
+	
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-30.0,4.0,-50.0);
+	glVertex3f(-25.0,4.0,-50.0);
+	glVertex3f(-25.0,13.0,-50.0);
+	glVertex3f(-30.0,13.0,-50.0);
+	glEnd();
+	
+	//draw lilies
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[10]);
+	
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(10.0,4.0,-50.0);
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(20.0,4.0,-50.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(20.0,13.0,-50.0);
+	glTexCoord2f(0.0,1.0);
+	glVertex3f(10.0,13.0,-50.0);
+	glEnd();
+	
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(10.0,4.0,-50.0);
+	glVertex3f(20.0,4.0,-50.0);
+	glVertex3f(20.0,13.0,-50.0);
+	glVertex3f(10.0,13.0,-50.0);
+	glEnd();
+	
+	//draw spoliarium
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[11]);
+	
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(25.0,4.0,-50.0);
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(45.0,4.0,-50.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(45.0,13.0,-50.0);
+	glTexCoord2f(0.0,1.0);
+	glVertex3f(25.0,13.0,-50.0);
+	glEnd();
+	
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(25.0,4.0,-50.0);
+	glVertex3f(45.0,4.0,-50.0);
+	glVertex3f(45.0,10.0,-50.0);
+	glVertex3f(25.0,10.0,-50.0);
+	glEnd();
 	
 	
 	//draw wave
-
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[4]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(1.0,0.0);
 	glVertex3f(-5.0,4.0,50.0);
@@ -666,17 +875,107 @@ void drawPainting(){
 	glVertex3f(-5.0,10.0,50.0);
 	glEnd();
 	
+	//draw kabuki	
 	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[13]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(10.0,4.0,50.0);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(18.0,4.0,50.0);
+	glTexCoord2f(0.0,1.0);
+	glVertex3f(18.0,15.0,50.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(10.0,15.0,50.0);
+	glEnd();
+
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(10.0,4.0,50.0);
+	glVertex3f(18.0,4.0,50.0);
+	glVertex3f(18.0,15.0,50.0);
+	glVertex3f(10.0,15.0,50.0);
+	glEnd();
+	
+	//draw adam
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[14]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(22.0,4.0,50.0);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(37.0,4.0,50.0);
+	glTexCoord2f(0.0,1.0);
+	glVertex3f(37.0,13.0,50.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(22.0,13.0,50.0);
+	glEnd();
+
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(22.0,4.0,50.0);
+	glVertex3f(37.0,4.0,50.0);
+	glVertex3f(37.0,13.0,50.0);
+	glVertex3f(22.0,13.0,50.0);
+	glEnd();
+	
+	//draw bridge
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[8]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(-20.0,4.0,50.0);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(-10.0,4.0,50.0);
+	glTexCoord2f(0.0,1.0);
+	glVertex3f(-10.0,10.0,50.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(-20.0,10.0,50.0);
+	glEnd();
+
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-20.0,4.0,50.0);
+	glVertex3f(-10.0,4.0,50.0);
+	glVertex3f(-10.0,10.0,50.0);
+	glVertex3f(-20.0,10.0,50.0);
+	glEnd();
+	
+	//draw impression
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[7]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(-45.0,4.0,50.0);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(-25.0,4.0,50.0);
+	glTexCoord2f(0.0,1.0);
+	glVertex3f(-25.0,15.0,50.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(-45.0,15.0,50.0);
+	glEnd();
+
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-45.0,4.0,50.0);
+	glVertex3f(-25.0,4.0,50.0);
+	glVertex3f(-25.0,15.0,50.0);
+	glVertex3f(-45.0,15.0,50.0);
+	glEnd();
+	
+	
 	//draw monalisa
+	glColor3f(1.0,1.0,1.0);
 	glBindTexture(GL_TEXTURE_2D, texture[5]);
 	glBegin(GL_QUADS);
-	glTexCoord2f(0.0,0.0);
-	glVertex3f(-50.0,4.0,-5.0);
+	
 	glTexCoord2f(1.0,0.0);
+	glVertex3f(-50.0,4.0,-5.0);
+	glTexCoord2f(0.0,0.0);
 	glVertex3f(-50.0,4.0,3.0);
-	glTexCoord2f(1.0,1.0);
+	glTexCoord2f(0.0,1.0);	
 	glVertex3f(-50.0,12.0,3.0);
-	glTexCoord2f(0.0,1.0);
+	glTexCoord2f(1.0,1.0);
 	glVertex3f(-50.0,12.0,-5.0);
 	glEnd();
 	
@@ -688,8 +987,101 @@ void drawPainting(){
 	glVertex3f(-50.0,12.0,-5.0);
 	glEnd();
 	
+	//draw apple
 	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[15]);
+	glBegin(GL_QUADS);
+	
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(-50.0,4.0,-20.0);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(-50.0,4.0,-8.0);
+	glTexCoord2f(0.0,1.0);	
+	glVertex3f(-50.0,12.0,-8.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(-50.0,12.0,-20.0);
+	glEnd();
+	
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-50.0,4.0,-20.0);
+	glVertex3f(-50.0,4.0,-8.0);
+	glVertex3f(-50.0,12.0,-8.0);
+	glVertex3f(-50.0,12.0,-20.0);
+	glEnd();
+	
+	//draw still
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[16]);
+	glBegin(GL_QUADS);
+	
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(-50.0,4.0,-25.0);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(-50.0,4.0,-35.0);
+	glTexCoord2f(0.0,1.0);	
+	glVertex3f(-50.0,12.0,-35.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(-50.0,12.0,-25.0);
+	glEnd();
+	
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-50.0,4.0,-25.0);
+	glVertex3f(-50.0,4.0,-35.0);
+	glVertex3f(-50.0,12.0,-35.0);
+	glVertex3f(-50.0,12.0,-25.0);
+	glEnd();
+	
+	//draw fruit
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[17]);
+	glBegin(GL_QUADS);
+	
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(-50.0,4.0,8.0);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(-50.0,4.0,20.0);
+	glTexCoord2f(0.0,1.0);	
+	glVertex3f(-50.0,12.0,20.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(-50.0,12.0,8.0);
+	glEnd();
+	
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-50.0,4.0,8.0);
+	glVertex3f(-50.0,4.0,20.0);
+	glVertex3f(-50.0,12.0,20.0);
+	glVertex3f(-50.0,12.0,8.0);
+	glEnd();
+	
+	//draw sad
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[21]);
+	glBegin(GL_QUADS);
+	
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(-50.0,4.0,25.0);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(-50.0,4.0,35.0);
+	glTexCoord2f(0.0,1.0);	
+	glVertex3f(-50.0,15.0,35.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(-50.0,15.0,25.0);
+	glEnd();
+	
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(-50.0,4.0,25.0);
+	glVertex3f(-50.0,4.0,35.0);
+	glVertex3f(-50.0,15.0,35.0);
+	glVertex3f(-50.0,15.0,25.0);
+	glEnd();
+	
+	
 	//draw scream
+	glColor3f(1.0,1.0,1.0);
 	glBindTexture(GL_TEXTURE_2D, texture[6]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0,0.0);
@@ -708,6 +1100,72 @@ void drawPainting(){
 	glVertex3f(50.0,4.0,3.0);
 	glVertex3f(50.0,12.0,3.0);
 	glVertex3f(50.0,12.0,-5.0);
+	glEnd();
+	
+	//draw cafe
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[18]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(50.0,4.0,-10.0);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(50.0,4.0,-25.0);
+	glTexCoord2f(0.0,1.0);
+	glVertex3f(50.0,12.0,-25.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(50.0,12.0,-10.0);
+	glEnd();
+	
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(50.0,4.0,-10.0);
+	glVertex3f(50.0,4.0,-25.0);
+	glVertex3f(50.0,12.0,-25.0);
+	glVertex3f(50.0,12.0,-10.0);
+	glEnd();
+	
+	//draw night
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[19]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(50.0,4.0,10.0);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(50.0,4.0,25.0);
+	glTexCoord2f(0.0,1.0);
+	glVertex3f(50.0,12.0,25.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(50.0,12.0,10.0);
+	glEnd();
+	
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(50.0,4.0,10.0);
+	glVertex3f(50.0,4.0,25.0);
+	glVertex3f(50.0,12.0,25.0);
+	glVertex3f(50.0,12.0,10.0);
+	glEnd();
+	
+	//draw memory
+	glColor3f(1.0,1.0,1.0);
+	glBindTexture(GL_TEXTURE_2D, texture[20]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0,0.0);
+	glVertex3f(50.0,4.0,30.0);
+	glTexCoord2f(0.0,0.0);
+	glVertex3f(50.0,4.0,45.0);
+	glTexCoord2f(0.0,1.0);
+	glVertex3f(50.0,15.0,45.0);
+	glTexCoord2f(1.0,1.0);
+	glVertex3f(50.0,15.0,30.0);
+	glEnd();
+	
+	glColor3f(0.0,0.0,0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(50.0,4.0,30.0);
+	glVertex3f(50.0,4.0,45.0);
+	glVertex3f(50.0,15.0,45.0);
+	glVertex3f(50.0,15.0,30.0);
 	glEnd();
 
 }
